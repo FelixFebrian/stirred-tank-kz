@@ -1,6 +1,8 @@
 /*
     Stirred-Tank Simulation
     Copyright (c) 2021 FelixFebrian
+
+    File tank.scad
 */
 
 // User Settings
