@@ -17,6 +17,8 @@ bladeThickness = 2;
 bladeLength = stirrerDiameter/2;
 bladeAngle = 45;  // deg
 
+zTranslation = 320 - 400 + 125;
+
 module single_blade() {
     zTranslation = -(sin(bladeAngle)*stirrerHeight/2) + (stirrerHeight/2);
     yTranslation = cos(bladeAngle) * stirrerHeight / 2;
@@ -38,4 +40,4 @@ module pbt_stirrer() {
 
 }
 
-pbt_stirrer();
+translate([0, 0, zTranslation]) pbt_stirrer();

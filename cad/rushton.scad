@@ -19,6 +19,8 @@ diskThickness = 3;
 bladeThickness = 2;
 bladeLength = 31;
 
+zTranslation = 320 - 400 + 125;
+
 module single_blade() {
     translate([stirrerDiameter/2 - bladeLength, -bladeThickness/2, 0])
         cube([bladeLength, bladeThickness, stirrerHeight]);
@@ -40,4 +42,4 @@ module rushton_stirrer() {
 
 }
 
-rushton_stirrer();
+translate([0, 0, zTranslation]) rushton_stirrer();
