@@ -15,16 +15,16 @@ FoamFile
 
 convertToMeters 0.001;
 
+nX              50;
+nY              $nX;
+nZ              $nX;
+
 xMin            -220;
 xMax            220;
 yMin            $xMin;
 yMax            $xMax;
 zMin            -100;
 zMax            340;
-
-nX              50;
-nY              $nX;
-nZ              #calc "($zMax+abs($zMin))/($xMax+abs($xMin)) * $nX";
 
 vertices
 (
