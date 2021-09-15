@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*Dict": "OpenFOAM",
+        "*Properties": "OpenFOAM",
+        "fvSchemes": "OpenFOAM",
+        "fvSolution": "OpenFOAM",
+        "sample": "OpenFOAM",
+        "**/constant/g": "OpenFOAM",
+        "**/0/*": "OpenFOAM",
+        "**/0.copy/*": "OpenFOAM",
+        "*Dockerfile": "dockerfile",
+        "codeStreamTemplate.C": "cpp"
+    }
+}

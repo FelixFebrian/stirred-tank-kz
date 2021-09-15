@@ -1,1 +1,9 @@
 **/*.stl
+**/logs/
+**/dynamicCode/
+**/processor*/
+**/gnuplot/*.png
+**/constant/triSurface
+**/constant/polyMesh
+**/[1-9]*/
+**/0.*/

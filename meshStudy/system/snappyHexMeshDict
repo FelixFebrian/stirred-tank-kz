@@ -13,23 +13,42 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#includeEtc "caseDicts/mesh/generation/snappyHexMeshDict.cfg"
+#includeEtc     "caseDicts/mesh/generation/snappyHexMeshDict.cfg"
 
 castellatedMesh on;
-snap            off;
+snap            on;
 addLayers       off;
 
 geometry
 {
-    CAD
+    tank
     {
         type triSurfaceMesh;
-        file "CAD.obj";
-        regions
-        {
-            <inletPatch>  { name inlet; }
-            <outletPatch> { name outlet; }
-        }
+        file "tank.stl";
+    }
+
+    baffles
+    {
+        type triSurfaceMesh;
+        file "baffles.stl";
+    }
+
+    fluidSurface
+    {
+        type triSurfaceMesh;
+        file "fluidSurface.stl";
+    }
+
+    shaft
+    {
+        type triSurfaceMesh;
+        file "shaft.stl";
+    }
+
+    stirrer
+    {
+        type triSurfaceMesh;
+        file "rushton.stl";
     }
 };
 
@@ -42,47 +61,62 @@ castellatedMeshControls
 
     refinementSurfaces
     {
-        CAD
+        tank
+        {
+            level (0 0);
+            patchInfo
+            {
+                type wall;
+            }
+        }
+
+        baffles
+        {
+            level (1 2);
+            patchInfo
+            {
+                type wall;
+            }
+        }
+
+        fluidSurface
+        {
+            level (0 0);
+            patchInfo
+            {
+                type wall;
+            }
+        }
+
+        shaft
         {
             level (2 2);
-            patchInfo { type wall; }
-
-            regions
+            patchInfo
             {
-                <inletPatch>
-                {
-                    level (2 2);
-                    patchInfo
-                    {
-                        type patch;
-                        inGroups (inlet);
-                    }
-                }
+                type wall;
+            }
+        }
 
-                <outletPatch>
-                {
-                    level (2 2);
-                    patchInfo
-                    {
-                        type patch;
-                        inGroups (outlet);
-                    }
-                }
+        stirrer
+        {
+            level (2 3);
+            patchInfo
+            {
+                type wall;
             }
         }
     }
 
     refinementRegions
     {
-        CAD
-        {
-            mode    inside;
-            level   2;
-        }
+        // CAD
+        // {
+        //     mode    inside;
+        //     level   2;
+        // }
     }
 
-    locationInMesh (1e-5 1e-5 1e-5); // Offset from (0 0 0) to avoid
-                                     // coinciding with face or edge
+    locationInMesh (0 0 0);
     nCellsBetweenLevels 3;
 }
 

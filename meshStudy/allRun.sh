@@ -1,21 +1,22 @@
 #!/bin/sh
 # cd ${0%/*} || exit 1    # Run from this directory
+foamCleanCase
 mkdir -p logs
 
 
 # Function definitions
 # Copy and scale surface stl-files
 function copy_surface {
+    # Copy all the stl files from cad to constant/triSurface
     srcDir="${FOAM_RUN}/cad"
     dstDir="${FOAM_RUN}/meshStudy/constant/triSurface"
-    # stlFiles=
 
     mkdir -p ${dstDir}
 
-    # for stlFile in "${stlFiles[@]}"; do
-    for stlFile in 'tank' 'baffles' 'fluidSurface' 'shaft' 'rushton' 'pbt'; do
+    for stlFile in ${srcDir}/*.stl; do
+        basename=${stlFile##*/}
         surfaceConvert -clean -scale 0.001 \
-            "${srcDir}/${stlFile}.stl" "${dstDir}/${stlFile}.stl" | tee -a logs/log.surfaceConvert
+            ${stlFile} "${dstDir}/${basename}" | tee -a logs/log.surfaceConvert
     done
 }
 

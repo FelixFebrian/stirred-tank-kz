@@ -20,28 +20,15 @@ internalField   uniform 0;
 
 boundaryField
 {
-    inlet
+    "(tank|baffles|shaft|stirrer)"
     {
         type            zeroGradient;
     }
-    outlet
+
+    fluidSurface
     {
         type            fixedValue;
         value           uniform 0;
-    }
-    side1
-    {
-        type            cyclicAMI;
-        value           uniform 0;
-    }
-    side2
-    {
-        type            cyclicAMI;
-        value           uniform 0;
-    }
-    walls
-    {
-        type            zeroGradient;
     }
 }
 
