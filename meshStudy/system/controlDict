@@ -16,7 +16,7 @@ FoamFile
 
 application     simpleFoam;
 
-startFrom       latestTime;
+startFrom       startTime;
 
 startTime       0;
 
@@ -44,5 +44,27 @@ timePrecision   6;
 
 runTimeModifiable true;
 
+functions
+{
+    forces
+    {
+        type          forces;
+
+        libs          ("libforces.so");
+
+        writeControl  timeStep;
+        timeInterval  1;
+
+        log           yes;
+
+        patches       (stirrer shaft);
+        rho           rhoInf;     // Indicates incompressible
+        log           true;
+        rhoInf        1;          // Redundant for incompressible
+
+        CofR          (0 0 0);    // Rotation around centre line of propeller
+        pitchAxis     (0 0 1);
+    }
+}
 
 // ************************************************************************* //

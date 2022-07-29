@@ -32,9 +32,9 @@ preprocess() {
 }
 
 
-clean_all
-copy_surface
-preprocess
+# clean_all
+# copy_surface
+# preprocess
 simpleFoam 2>&1 | tee logs/log.simpleFoam
 
 # # Source tutorial run functions
