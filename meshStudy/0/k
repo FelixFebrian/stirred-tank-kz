@@ -23,7 +23,7 @@ boundaryField
     "(tank|baffles|shaft|stirrer)"
     {
         type            kqRWallFunction;
-        value           uniform 0;
+        value           uniform 1;
     }
 
     fluidSurface

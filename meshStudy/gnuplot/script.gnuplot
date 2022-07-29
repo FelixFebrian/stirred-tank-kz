@@ -8,4 +8,4 @@ plot "logs/Ux_0" using 1:2 with lines title "Ux", \
      "logs/Uz_0" using 1:2 with lines title "Uz", \
      "logs/p_0" using 1:2 with lines title "p", \
      "logs/k_0" using 1:2 with lines title "k", \
-     "logs/epsilon_0" using 1:2 with lines title "epsilon", \
+     "logs/epsilon_0" using 1:2 with lines title "epsilon";

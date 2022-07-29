@@ -17,7 +17,7 @@ FoamFile
 
 castellatedMesh on;
 snap            on;
-addLayers       off;
+addLayers       on;
 
 geometry
 {
@@ -54,9 +54,16 @@ geometry
 
 castellatedMeshControls
 {
+    // maxLocalCells       100000;
+    // maxGlobalCells      100000000;
+    // minRefinementCells  10;
+    // maxLoadUnbalance    0.10;
+    nCellsBetweenLevels 3;
+    // resolveFeatureAngle 30;
+    // allowFreeStandingZoneFaces true;
+
     features
     (
-//      { file "CAD.eMesh"; level 1; }
     );
 
     refinementSurfaces
@@ -109,40 +116,73 @@ castellatedMeshControls
 
     refinementRegions
     {
-        // CAD
-        // {
-        //     mode    inside;
-        //     level   2;
-        // }
     }
 
     locationInMesh (0 0 0);
-    nCellsBetweenLevels 3;
 }
 
 snapControls
 {
-//  explicitFeatureSnap    true;
-//  implicitFeatureSnap    false;
+    nSmoothPatch    3;
+    tolerance       2.0;
+    // nSolveIter      100;
+    // nRelaxIter      5;
+
+    // nFeatureSnapIter 10;
+
+    // explicitFeatureSnap    false;
+    // multiRegionFeatureSnap false;
+    implicitFeatureSnap    true;
 }
 
 addLayersControls
 {
     layers
     {
-        "CAD.*"
+        baffles
         {
             nSurfaceLayers 2;
+        }
+
+        shaft
+        {
+            nSurfaceLayers 3;
+        }
+
+        stirrer
+        {
+            nSurfaceLayers 3;
         }
     }
 
     relativeSizes       true; // false, usually with firstLayerThickness
     expansionRatio      1.2;
-    finalLayerThickness 0.5;
-    minThickness        1e-3;
+    finalLayerThickness 0.1;
+    minThickness        1e-4;
 //  firstLayerThickness 0.01;
 
-//  maxThicknessToMedialRatio 0.6;
+    // featureAngle              100;
+    // slipFeatureAngle          30;
+
+    // nLayerIter                50;
+    // nRelaxedIter              20;
+    // nRelaxIter                5;
+
+    // nGrow                     0;
+
+    // nSmoothSurfaceNormals     1;
+    // nSmoothNormals            3;
+    // nSmoothThickness          10;
+    // maxFaceThicknessRatio     0.5;
+    // maxThicknessToMedialRatio 0.6;
+
+    // minMedialAxisAngle        90;
+    // nMedialAxisIter           10;
+
+    // nBufferCellsNoExtrude     0;
+    // additionalReporting       false;
+    // nSmoothDisplacement       0;
+    // detectExtrusionIsland     false;
 }
 
 writeFlags

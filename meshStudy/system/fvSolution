@@ -59,7 +59,7 @@ PIMPLE
 
 SIMPLE
 {
-    nNonOrthogonalCorrectors 0;
+    nNonOrthogonalCorrectors 1;
     residualControl
     {
         p               1e-4;

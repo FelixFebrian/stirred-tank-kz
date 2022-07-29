@@ -1,13 +1,17 @@
 #!/bin/sh
 # cd ${0%/*} || exit 1    # Run from this directory
-foamCleanCase
-mkdir -p logs
-
 
 # Function definitions
-# Copy and scale surface stl-files
-function copy_surface {
-    # Copy all the stl files from cad to constant/triSurface
+clean_all() {
+    foamCleanCase
+    rm -rf logs
+    rm -rf constant/triSurface
+    mkdir -p logs
+    touch meshStudy.foam
+}
+
+copy_surface() {
+    # Copy and scale surface stl-files from cad to constant/triSurface
     srcDir="${FOAM_RUN}/cad"
     dstDir="${FOAM_RUN}/meshStudy/constant/triSurface"
 
@@ -20,8 +24,18 @@ function copy_surface {
     done
 }
 
+preprocess() {
+    # Mesh the geometry
+    blockMesh 2>&1 | tee logs/log.blockMesh
+    snappyHexMesh -overwrite 2>&1 | tee logs/log.snappyHexMesh
+    checkMesh 2>&1 | tee logs/log.checkMesh
+}
 
+
+clean_all
 copy_surface
+preprocess
+simpleFoam 2>&1 | tee logs/log.simpleFoam
 
 # # Source tutorial run functions
 # . $WM_PROJECT_DIR/bin/tools/RunFunctions
