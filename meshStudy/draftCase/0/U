@@ -30,7 +30,7 @@ boundaryField
         type            rotatingWallVelocity;
         origin          (0 0 0);
         axis            (0 0 1);
-        omega           1000;
+        omega           100;
     }
 
     fluidSurface

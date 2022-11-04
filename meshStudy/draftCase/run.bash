@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # cd ${0%/*} || exit 1    # Run from this directory
 
 # Function definitions
@@ -13,7 +13,7 @@ clean_all() {
 copy_surface() {
     # Copy and scale surface stl-files from cad to constant/triSurface
     srcDir="${FOAM_RUN}/cad"
-    dstDir="${FOAM_RUN}/meshStudy/constant/triSurface"
+    dstDir="${PWD}/constant/triSurface"
 
     mkdir -p ${dstDir}
 
@@ -31,25 +31,25 @@ preprocess() {
     checkMesh 2>&1 | tee logs/log.checkMesh
 }
 
+run_simulation() {
+    # Run the simulation
+    simpleFoam 2>&1 | tee logs/log.simpleFoam
+}
 
-# clean_all
-# copy_surface
-# preprocess
-simpleFoam 2>&1 | tee logs/log.simpleFoam
+postprocess() {
+    # Run postprocessing step
+    foamLog logs/log.simpleFoam
+    gnuplot gnuplot/script.gnuplot
+}
 
-# # Source tutorial run functions
-# . $WM_PROJECT_DIR/bin/tools/RunFunctions
+run_all() {
+    clean_all
+    copy_surface
+    preprocess
+    run_simulation
+    postprocess
+}
 
-# # Get application directory
-# application=$(getApplication)
-
-# runApplication blockMesh
-# runApplication topoSet
-# runApplication refineHexMesh c0 -overwrite
-
-# runApplication decomposePar -cellDist
-# runParallel $application
-
-# runApplication reconstructPar
+"$@"
 
 #------------------------------------------------------------------------------
