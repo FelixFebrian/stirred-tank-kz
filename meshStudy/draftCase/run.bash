@@ -26,14 +26,14 @@ copy_surface() {
 
 preprocess() {
     # Mesh the geometry
-    blockMesh 2>&1 | tee logs/log.blockMesh
-    snappyHexMesh -overwrite 2>&1 | tee logs/log.snappyHexMesh
-    checkMesh 2>&1 | tee logs/log.checkMesh
+    blockMesh 2>&1 | tee -a logs/log.blockMesh
+    snappyHexMesh -overwrite 2>&1 | tee -a logs/log.snappyHexMesh
+    checkMesh 2>&1 | tee -a logs/log.checkMesh
 }
 
 run_simulation() {
     # Run the simulation
-    simpleFoam 2>&1 | tee logs/log.simpleFoam
+    simpleFoam 2>&1 | tee -a logs/log.simpleFoam
 }
 
 postprocess() {
