@@ -40,6 +40,15 @@ postprocess() {
     # Run postprocessing step
     foamLog logs/log.simpleFoam
     gnuplot gnuplot/script.gnuplot
+
+    simpleFoam -postProcess -func "yPlus" -latestTime
+    LATESTTIME=$(foamListTimes -latestTime)
+    for PATCH in stirrer baffles tank shaft
+    do
+        foamDictionary $LATESTTIME/yPlus -entry boundaryField/$PATCH/value -value > postProcessing/yPlus/$LATESTTIME/$PATCH.dat
+        sed -i -e 1,3d postProcessing/yPlus/$LATESTTIME/$PATCH.dat
+    done
+    gnuplot -e "time='$LATESTTIME'" gnuplot/yPlus.gnuplot
 }
 
 run_all() {

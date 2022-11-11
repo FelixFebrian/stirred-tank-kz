@@ -13,6 +13,10 @@ plot "logs/Ux_0" using 1:2 with lines title "Ux", \
 set output "gnuplot/forces.png";
 set logscale y;
 
-plot "< sed s/[\\(\\)]//g postProcessing/forces/0/forces.dat" using 1:2 with lines title "Pressure Force x", \
-     "< sed s/[\\(\\)]//g postProcessing/forces/0/forces.dat" using 1:3 with lines title "Pressure Force y", \
-     "< sed s/[\\(\\)]//g postProcessing/forces/0/forces.dat" using 1:4 with lines title "Pressure Force z";
+absolute(x, y, z) = sqrt(x * x + y * y + z * z);
+
+
+plot "< sed s/[\\(\\)]//g postProcessing/forces/0/forces.dat" using 1:(absolute($2,$3,$4)) with lines title "Pressure Force", \
+     "< sed s/[\\(\\)]//g postProcessing/forces/0/forces.dat" using 1:(absolute($5,$6,$7)) with lines title "Viscous Force", \
+     "< sed s/[\\(\\)]//g postProcessing/forces/0/forces.dat" using 1:(absolute($8,$9,$10)) with lines title "Pressure Moment", \
+     "< sed s/[\\(\\)]//g postProcessing/forces/0/forces.dat" using 1:(absolute($11,$12,$13)) with lines title "Viscous Moment";
